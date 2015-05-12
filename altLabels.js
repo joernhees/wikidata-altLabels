@@ -64,9 +64,14 @@
 		}
 
 		/**
+		 * load json module
+		 */
+		mw.loader.load('json');
+
+		/**
 		 * get other labels
 		 */
-		var labels = $.parseJSON(mw.config.get('wbEntity')).labels;
+		var labels = JSON.parse(mw.config.get('wbEntity')).labels;
 
 		/**
 		 * get the most often used label across languages
@@ -132,7 +137,7 @@
 			"language": userLanguage,
 			"value": selectedLabel
 		};
-		setItem($.toJSON( {
+		setItem(JSON.stringify( {
 			"labels": labels,
 		} ), "["+userLanguage+"] " + selectedLabel + " (approved from other language)");
 	}

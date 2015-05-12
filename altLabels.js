@@ -124,7 +124,7 @@
 	 */
 	function submitAltLabel(ev) {
 		ev.preventDefault();
-		var selectedLabel = $(ev.target).html();
+		var selectedLabel = $(ev.target).text();
 		console.log("selected alt label: " + selectedLabel);
 
 		/*

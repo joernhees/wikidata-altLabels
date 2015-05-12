@@ -164,7 +164,7 @@
 			} else {
 				$( '#green-box' ).empty();
 				$( '#green-box' ).append( summary );
-				mw.notify('sended', { title: 'altLabels.js :', tag: 'altLabels' } );
+				mw.notify('sent', { title: 'altLabels.js :', tag: 'altLabels' } );
 				window.location.reload(true);
 			}
 		} )

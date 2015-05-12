@@ -28,7 +28,7 @@
 ( function ( mw, $ ) {
 	'use strict';
 
-	console.log('altLabels loaded');
+	console.log('altLabels 1.1.1 loaded');
 
 	/**
 	 * Check if we're viewing an item

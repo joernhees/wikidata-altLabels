@@ -4,7 +4,7 @@
 **                  ____ _/ / /_/ /   ____ _/ /_  ___  / /____                   **
 **                 / __ `/ / __/ /   / __ `/ __ \/ _ \/ / ___/                   **
 **                / /_/ / / /_/ /___/ /_/ / /_/ /  __/ (__  )                    **
-**                \__,_/_/\__/_____/\__,_/_.___/\___/_/____/  v1.1.0             **
+**                \__,_/_/\__/_____/\__,_/_.___/\___/_/____/  v2.0.0-dev         **
 **                                                                               **
 ** ----------------------------------------------------------------------------- **
 **  How To use:                                                                  **
@@ -28,7 +28,7 @@
 ( function ( mw, $ ) {
 	'use strict';
 
-	console.log('altLabels 1.1.1 loaded');
+	console.log('altLabels 2.0.0-dev loaded');
 
 	/**
 	 * Check if we're viewing an item
@@ -52,7 +52,7 @@
 		 * Check for the label input box, its presence means we don't have a label
 		 * If we have a label return, do nothing.
 		 */
-		labelInput = $('#wb-item-'+itemId+' h1 span.wikibase-labelview-text input');
+		labelInput = $('#wb-item-'+itemId+' h1.wikibase-entitytermsview-heading-label.wb-empty');
 		if (labelInput.length < 1) {
 			return;
 		}
@@ -118,7 +118,7 @@
 		}
 		// bind click handler to shown altlabels
 		altLabelsDOM.find('.wb-item-altlabel').click(submitAltLabel);
-		labelInput.parent().after(altLabelsDOM);
+		labelInput.after(altLabelsDOM);
 	}
 
 	/**

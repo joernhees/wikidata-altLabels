@@ -1,3 +1,30 @@
+/**********************************************************************************
+***********************************************************************************
+**                         ____  __          __         __                       **
+**                  ____ _/ / /_/ /   ____ _/ /_  ___  / /____                   **
+**                 / __ `/ / __/ /   / __ `/ __ \/ _ \/ / ___/                   **
+**                / /_/ / / /_/ /___/ /_/ / /_/ /  __/ (__  )                    **
+**                \__,_/_/\__/_____/\__,_/_.___/\___/_/____/  v0.1               **
+**                                                                               **
+** ----------------------------------------------------------------------------- **
+**  How To use:                                                                  **
+**   Add to your common.js [[Special:MyPage/common.js]],                         **
+**   importScript( 'User:Joern/altLabels.js' );                                  **
+**                                                                               **
+**  Links:                                                                       **
+**    [[User:Joern/altLabels.js]]                                                **
+**                                                                               **
+**  About:                                                                       **
+**    This tool will add the 3 most common labels used in other languages below  **
+**    the label's edit box in your language. A simple click will approve the     **
+**    selected label for the current item.                                       **
+**    If the item already has a label in your language nothing is changed.       **
+**                                                                               **
+**  Thanks to:                                                                   **
+**    [[User:Jitrixis]] your [[User:Jitrixis/labelLister.js]] helped me a lot.   **
+***********************************************************************************
+**********************************************************************************/
+
 ( function ( mw, $ ) {
 	'use strict';
 
@@ -10,6 +37,12 @@
 	}
 
 	/**
+	 * holds the DOM input element for the label
+	 */
+	var labelInput;
+	var userLanguage;
+
+	/**
 	 * altLabels
 	 */
 	function altLabels() {
@@ -17,7 +50,7 @@
 		 * Check for the label input box, its presence means we don't have a label
 		 * If we have a label return, do nothing.
 		 */
-		var labelInput = $('#wb-item-'+itemId+' h1 span span.wb-value input');
+		labelInput = $('#wb-item-'+itemId+' h1 span span.wb-value input');
 		if (labelInput.length < 1) {
 			return;
 		}
@@ -25,7 +58,10 @@
 		/**
 		 * get user's main language
 		 */
-		var lang = mw.config.get( 'wgUserLanguage' );
+		userLanguage = mw.config.get( 'wgUserLanguage' );
+		if (userLanguage.length < 1) {
+			return;
+		}
 
 		/**
 		 * get other labels
@@ -67,27 +103,77 @@
 		for (var i = 0; i < Math.min(topLabels.length, 3); i++) {
 			label = topLabels[i][0];
 			var insertElem = sep+'<span>' +
-				'<a class="wb-item-altlabel" href="#" title="Approve this label for my language">'+
+				'<a class="wb-item-altlabel" href="" title="Approve this label for my language">'+
 				label +
 				'</a> <span title="'+labelLangs[label]+'">('+topLabels[i][1]+'x)</span></span>';
 			sep = ', ';
 			altLabelsDOM.append(insertElem);
 		}
 		// bind click handler to shown altlabels
-		altLabelsDOM.filter('.wb-item-altlabel').click(submitAltLabel);
+		altLabelsDOM.find('.wb-item-altlabel').click(submitAltLabel);
 		labelInput.parent().after(altLabelsDOM);
-
-		//console.log("hi, item: "+itemId);
 	}
 
 	/**
 	 * submit clicked alt label
 	 */
 	function submitAltLabel(ev) {
-		console.log('hi');
-		ev.prevDefault();
+		ev.preventDefault();
 		var selectedLabel = $(ev.target).html();
-		console.log(selectedLabel);
+		console.log("selected alt label: " + selectedLabel);
+
+		/*
+		 * the value in the following is really set via UI and submitted... can
+		 * probably be improved and be done by API directly, but i didn't want
+		 * to break anything
+		 */
+		var labels = {};
+		labels[userLanguage] = {
+			"language": userLanguage,
+			"value": selectedLabel
+		};
+		setItem($.toJSON( {
+			"labels": labels,
+		} ), "["+userLanguage+"] " + selectedLabel + " (approved from other language)");
+	}
+
+	/**
+	 * Send the input value on the edit menu
+	 */
+	function setItem( item, summary ) {
+		$.ajax( {
+			type: 'POST',
+			url: mw.util.wikiScript( 'api' ),
+			data: {
+				format: 'json',
+				action: 'wbeditentity',
+				id: itemId,
+				type: 'item',
+				token: mw.user.tokens.get( 'editToken' ),
+				data: item,
+				summary: '[[User:Joern/altLabels.js|altLabels]] ' + summary,
+				exclude: 'pageid|ns|title|lastrevid|touched|sitelinks'
+			}
+		} )
+		.done( function ( data ) {
+			if ( data.hasOwnProperty( "error" ) ) {
+				mw.notify( 'API Error' + $.toJSON( data ), { title: 'altLabels.js :', tag: 'altLabels' } );
+				$( '#green-box' ).empty();
+				$( '#red-box' ).empty();
+				$( '#red-box' ).append( data.error.info.replace( /\n/g, ' ' ) );
+			} else {
+				$( '#green-box' ).empty();
+				$( '#green-box' ).append( summary );
+				mw.notify('sended', { title: 'altLabels.js :', tag: 'altLabels' } );
+				window.location.reload(true);
+			}
+		} )
+		.fail( function () {
+			mw.notify( 'API Error', { title: 'altLabels.js :', tag: 'altLabels' } );
+			$( '#green-box' ).empty();
+			$( '#red-box' ).empty();
+			$( '#red-box' ).append( "API Error" );
+		} );
 	}
 
 	$( document ).ready( altLabels );

@@ -1,4 +1,3 @@
-
 ( function ( mw, $ ) {
 	'use strict';
 
@@ -64,7 +63,7 @@
 		 * show (up to) top 3 alternative labels
 		 */
 		var altLabelsDOM = $('<span class="wb-value-row wb-value-supplement">Approve label from other languages: </span>');
-		sep = '';
+		var sep = '';
 		for (var i = 0; i < Math.min(topLabels.length, 3); i++) {
 			label = topLabels[i][0];
 			var insertElem = sep+'<span>' +

@@ -23,5 +23,5 @@ the following to your
 [common.js](https://www.wikidata.org/wiki/Special:MyPage/common.js)
 instead of the above `importScript(...);`:
 ```
-mw.loader.load('//raw.githubusercontent.com/joernhees/wikidata-altLabels/master/altLabels.js');
+mw.loader.load('//joernhees.github.io/wikidata-altLabels/altLabels.js');
 ```

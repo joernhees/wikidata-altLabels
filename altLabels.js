@@ -49,6 +49,7 @@
 	 * holds the DOM input element for the label
 	 */
 	var labelInput;
+	var altLabelsParent;
 	var userLanguage;
 
 	/**
@@ -63,6 +64,15 @@
 		if (labelInput.length < 1) {
 			return;
 		}
+
+		/**
+		 * Element into which to add the altLabels
+		 */
+		altLabelsParent = $('#wb-item-' + itemId + ' div.wikibase-entitytermsview-heading');
+		if (altLabelsParent.length < 1) {
+			return;
+		}
+
 
 		/**
 		 * get user's main language
@@ -112,20 +122,20 @@
 		/**
 		 * show (up to) top 3 alternative labels
 		 */
-		var altLabelsDOM = $('<span class="wb-value-row wb-value-supplement">Approve label from other languages: </span>');
-		var sep = '';
+		var altLabelsDOM = $('<div class="wikibase-entitytermsview-heading-aliases">Approve label from other languages: </div>');
+		var altLabelsUL = $('<ul class="wikibase-entitytermsview-aliases"></ul>');
 		for (var i = 0; i < Math.min(topLabels.length, 3); i++) {
 			label = topLabels[i][0];
-			var insertElem = sep+'<span>' +
+			var insertElem = '<li class="wikibase-entitytermsview-aliases-alias"> ' +
 				'<a class="wb-item-altlabel" href="" title="Approve this label for my language">'+
 				label +
-				'</a> <span title="'+labelLangs[label]+'">('+topLabels[i][1]+'x)</span></span>';
-			sep = ', ';
-			altLabelsDOM.append(insertElem);
+				'</a> <span title="'+labelLangs[label]+'">('+topLabels[i][1]+'x)</span></li>';
+			altLabelsUL.append(insertElem);
 		}
+		altLabelsDOM.append(altLabelsUL);
 		// bind click handler to shown altlabels
 		altLabelsDOM.find('.wb-item-altlabel').click(submitAltLabel);
-		labelInput.after(altLabelsDOM);
+		altLabelsParent.prepend(altLabelsDOM);
 	}
 
 	/**

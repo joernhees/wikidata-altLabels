@@ -20,6 +20,10 @@
 **    the label's edit box in your language. A simple click will approve the     **
 **    selected label for the current item.                                       **
 **    If the item already has a label in your language nothing is changed.       **
+**    This is expecially helpful for names of places or people which are similar **
+**    in many languages.                                                         **
+**    A useful resource might be this page which lists top items without labels: **
+**    [[http://tools.wmflabs.org/wikidata-terminator/?list&lang=de&mode=t1000]]  **
 **                                                                               **
 **  Bug Reports, Feature Requests, Development:                                  **
 **    If you want to report a bug or even have a pull request, please visit      **

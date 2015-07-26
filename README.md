@@ -4,7 +4,7 @@ This tool will add the 3 most common labels used in other languages below
 the label's edit box in your language. A simple click will approve the
 selected label for the current item.
 If the item already has a label in your language nothing is changed.
-This is expecially helpful for names of places or people which are similar
+This is especially helpful for names of places or people which are similar
 in many languages.
 
 # How To use:

@@ -17,8 +17,7 @@ importScript( 'User:Joern/altLabels.js' );
 # Links:
  * https://www.wikidata.org/wiki/User:Joern/altLabels.js
  * https://github.com/joernhees/wikidata-altLabels
- * Top items without labels:
-   [[http://tools.wmflabs.org/wikidata-terminator/?list&lang=de&mode=t1000]]
+ * [Top items without labels](http://tools.wmflabs.org/wikidata-terminator/?list&lang=de&mode=t1000)
 
 # Bug Reports, Feature Requests, Development:
 Feel free to report bugs or even pull requests here on github.

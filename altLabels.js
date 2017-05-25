@@ -66,7 +66,11 @@
 		 */
 		labelInput = $('h1.firstHeading .wikibase-title.wb-empty');
 		if (labelInput.length < 1) {
-			return;
+			// in case we have a label, check if it's not a fallback
+			labelInput = $('h1.firstHeading .wb-language-fallback-indicator');
+			if (labelInput.length < 1) {
+				return;
+			}
 		}
 
 		/**

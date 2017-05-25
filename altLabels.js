@@ -4,15 +4,17 @@
 **                  ____ _/ / /_/ /   ____ _/ /_  ___  / /____                   **
 **                 / __ `/ / __/ /   / __ `/ __ \/ _ \/ / ___/                   **
 **                / /_/ / / /_/ /___/ /_/ / /_/ /  __/ (__  )                    **
-**                \__,_/_/\__/_____/\__,_/_.___/\___/_/____/  v3.1.1-dev         **
+**                \__,_/_/\__/_____/\__,_/_.___/\___/_/____/  v3.1.1             **
 **                                                                               **
 ** ----------------------------------------------------------------------------- **
 **  How To use:                                                                  **
-**   Add the following to your common.js [[Special:MyPage/common.js]]:           **
-**   importScript( 'User:Joern/altLabels.js' );                                  **
+**   Add the following to your common.js [[Special:MyPage/common.js]] (can be    **
+**   found under [[https://www.wikidata.org/wiki/Special:MyPage/common.js]] ):   **
+**     importScript( 'User:Joern/altLabels.js' );                                **
 **                                                                               **
 **  Links:                                                                       **
-**    [[User:Joern/altLabels.js]]                                                **
+**    [[User:Joern/altLabels.js]]:                                               **
+**    [[https://www.wikidata.org/wiki/User:Joern/altLabels.js]]                  **
 **    [[https://github.com/joernhees/wikidata-altLabels]]                        **
 **                                                                               **
 **  About:                                                                       **
